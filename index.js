@@ -33,7 +33,8 @@ class UserAvatar extends Component {
       colors = defaultColors,
       fontDecrease,
       size,
-      styles,
+      style,
+      textStyle,
       defaultName,
       radius = 0.5,
       cache = 'default',
@@ -91,12 +92,12 @@ class UserAvatar extends Component {
 
       innerStyle.backgroundColor = background;
 
-      inner = <Text style={[{ fontSize: size / fontDecrease, color: textColor }, (styles ? styles.avatarText : null)]}>{abbr}</Text>
+      inner = <Text style={[{ fontSize: size / fontDecrease, color: textColor }, textStyle]}>{abbr}</Text>
     }
 
     return (
       <View>
-        <View style={[innerStyle, (styles ? styles.avatarContainer : null)]}>
+        <View style={[innerStyle, style]}>
           {inner}
         </View>
       </View>
