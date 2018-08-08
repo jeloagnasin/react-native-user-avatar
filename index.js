@@ -35,7 +35,8 @@ class UserAvatar extends Component {
       size,
       styles,
       defaultName,
-      radius = 0.5
+      radius = 0.5,
+      cache = 'default',
     } = this.props;
 
     if (!fontDecrease) fontDecrease = 2.5;
@@ -73,7 +74,7 @@ class UserAvatar extends Component {
 
       const props = {
         style: imageStyle,
-        source: {uri: src}
+        source: { uri: src, cache },
       }
 
       inner = React.createElement( this.props.component || Image, props )

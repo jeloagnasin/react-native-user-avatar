@@ -17,6 +17,7 @@ Based on the great library for React: https://github.com/wbinnssmith/react-user-
 ```js
   <UserAvatar size="100" name="Avishay Bar" />
   <UserAvatar size="100" name="Avishay Bar" src="https://dummyimage.com/100x100/000/fff" />
+  <UserAvatar size="100" name="Avishay Bar" src="https://dummyimage.com/100x100/000/fff" cache="force-cache" />
   <UserAvatar size="50" name="John Doe" colors={['#ccc', '#fafafa', '#ccaabb']}/>
   <UserAvatar size="50" name="John Doe" />
   <UserAvatar size="50" name="Jane Doe" color="#000" />
