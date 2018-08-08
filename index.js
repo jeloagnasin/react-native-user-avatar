@@ -31,10 +31,14 @@ class UserAvatar extends Component {
       color,
       textColor = '#fff',
       colors = defaultColors,
+      fontDecrease,
       size,
       styles,
       defaultName,
+      radius = 0.5
     } = this.props;
+
+    if (!fontDecrease) fontDecrease = 2.5;
 
     if (!name) throw new Error('Avatar requires a name');
 
@@ -43,7 +47,9 @@ class UserAvatar extends Component {
     let abbr = initials(name);
     if(!abbr) abbr = defaultName;
 
-    const borderRadius = size * 0.5;
+    if(isNaN(radius)) radius = 0.5
+
+    const borderRadius = size * radius;
 
     const imageStyle = {
       borderRadius
@@ -64,7 +70,14 @@ class UserAvatar extends Component {
 
     let inner, classes;
     if (src) {
-      inner = <Image style={imageStyle} source={{ uri: src }} />
+
+      const props = {
+        style: imageStyle,
+        source: {uri: src}
+      }
+
+      inner = React.createElement( this.props.component || Image, props )
+
     } else {
       let background;
       if (color) {
@@ -77,7 +90,7 @@ class UserAvatar extends Component {
 
       innerStyle.backgroundColor = background;
 
-      inner = <Text style={[{ fontSize: size / 2.5, color: textColor }, (styles ? styles.avatarText : null)]}>{abbr}</Text>
+      inner = <Text style={[{ fontSize: size / fontDecrease, color: textColor }, (styles ? styles.avatarText : null)]}>{abbr}</Text>
     }
 
     return (
