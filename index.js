@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { View, Image, Text } from 'react-native';
 import initials from 'initials';
-import contrast from 'contrast';
 
 // from https://flatuicolors.com/
 const defaultColors = [
@@ -23,7 +22,7 @@ function sumChars(str) {
   return sum;
 }
 
-class UserAvatar extends Component {
+class UserAvatar extends React.PureComponent {
   render() {
     let {
       src,
@@ -35,6 +34,8 @@ class UserAvatar extends Component {
       size,
       style,
       textStyle,
+      containerStyle,
+      imageStyle,
       defaultName,
       radius = 0.5,
       cache = 'default',
@@ -47,13 +48,18 @@ class UserAvatar extends Component {
     if(typeof size !== 'number') size = parseInt(size);
 
     let abbr = initials(name);
+    
+    if (name.startsWith('+')) {
+      abbr = `+${abbr}`
+    }
+
     if(!abbr) abbr = defaultName;
 
     if(isNaN(radius)) radius = 0.5
 
     const borderRadius = size * radius;
 
-    const imageStyle = {
+    const imageLocalStyle = {
       borderRadius
     };
 
@@ -66,15 +72,15 @@ class UserAvatar extends Component {
     };
 
     if (size) {
-      imageStyle.width = innerStyle.width = size;
-      imageStyle.height = innerStyle.height = size;
+      imageLocalStyle.width = innerStyle.width = size;
+      imageLocalStyle.height = innerStyle.height = size;
     }
 
-    let inner, classes;
+    let inner;
     if (src) {
 
       const props = {
-        style: imageStyle,
+        style: [imageLocalStyle, imageStyle],
         source: { uri: src, cache },
       }
 
@@ -97,7 +103,7 @@ class UserAvatar extends Component {
 
     return (
       <View>
-        <View style={[innerStyle, style]}>
+        <View style={[innerStyle, containerStyle]}>
           {inner}
         </View>
       </View>
